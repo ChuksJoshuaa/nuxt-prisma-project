@@ -13,10 +13,10 @@ export const createUser = async (userData) => {
 };
 
 
-export const getUserByUsername = async (username) => {
+export const getUserByEmail = async (email) => {
     return prisma.user.findUnique({
         where: {
-            username: username
+            email: email
         }
     })
 }
