@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken"
+import { __prod__, REFRESH_TOKEN } from "../constant";
 
 const generateAccessToken = (user) => {
     const config = useRuntimeConfig()
@@ -30,4 +31,15 @@ export const generateTokens = (user) => {
         accessToken: accessToken,
         refreshToken: refreshToken,
     }
+}
+
+export const sendRefreshToken = (event, token) => {
+    const response = event !== undefined ? event : null
+
+    setCookie(response, REFRESH_TOKEN, token, {
+      maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
+      httpOnly: !__prod__,
+      secure: !__prod__,
+      sameSite: "lax"
+    });
 }

@@ -4,14 +4,14 @@
 generator client {
   provider = "prisma-client-js"
   // previewFeatures = ["clientExtensions", "fullTextIndex", "fullTextSearch"] 
-  previewFeatures=["referentialIntegrity"]
+  // previewFeatures=["referentialIntegrity"]
 }
 
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
-  // relationMode = "prisma"
-  referentialIntegrity="prisma"
+  relationMode = "prisma"
+  // referentialIntegrity="prisma"
 }
 
 model User {
@@ -24,4 +24,17 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  RefreshToken RefreshToken[]
+}
+
+
+model RefreshToken {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  token String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
 }

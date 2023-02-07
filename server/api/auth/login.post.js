@@ -1,7 +1,9 @@
 import { getUserByEmail } from "~~/server/db/users";
 import { userTransformer } from "~~/server/transformers/user";
 import { comparePassword } from "~~/server/db/bcrypt";
-import { generateTokens } from "~~/server/token/jwt";
+import { generateTokens, sendRefreshToken } from "~~/server/token/jwt";
+import { createRefreshToken } from "~~/server/db/refreshToken";
+import { sendError } from "h3"
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)
@@ -46,16 +48,18 @@ export default defineEventHandler(async (event) => {
     }
 
     //Generate Tokens
-
-    //Access token
-    // Refresh token
-
     const { accessToken, refreshToken } = generateTokens(user)
 
     //Save it inside db
+    await createRefreshToken({
+        token: refreshToken,
+        userId: user.id
+    })
 
+    //Add http only cookies
+    sendRefreshToken(event, refreshToken)
+     
 
-    //Add http only cookie
     return {
       access_token: accessToken,
       user: userTransformer(user)
