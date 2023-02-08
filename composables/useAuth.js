@@ -9,9 +9,9 @@ export default () => {
     }
 
     const setUser = (newUser) => {
-        const useAuthUser = useAuthUser();
+        const authUser = useAuthUser();
 
-        useAuthUser.value = newUser
+        authUser.value = newUser
     }
     
 
@@ -26,10 +26,36 @@ export default () => {
                     }
                 })
 
-                console.log(data)
                 setToken(data.access_token)
-                setUser(data.user)
+                setUser(data.user.name)
+                resolve(true)
+            }
+            catch (error) {
+                reject(error)
+            }
+        })
+    }
 
+    const refreshToken = () => {
+        return new Promise( async (resolve, reject) => {
+            try {
+                const data = await $fetch('/api/auth/refresh')
+                setToken(data.access_token)
+                resolve(true)
+            }
+            catch (error) {
+                reject(error)
+            }
+        })
+    }
+
+    const initAuth = () => {
+        return new Promise( async (resolve, reject) => {
+            try {
+                const data = await $fetch('/api/auth/init')
+
+                setToken(data.access_token)
+                setUser(data.user.name)
                 resolve(true)
             }
             catch (error) {
@@ -40,7 +66,7 @@ export default () => {
 
     return {
         login,
-        useAuthToken,
+        // useAuthToken,
         useAuthUser
     }
 }

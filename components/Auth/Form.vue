@@ -5,7 +5,7 @@
        <UIInput label="Password" placeholder="********"  type="password" v-model="data.password"/>
     
       <div class="flex justify-start items-center">
-        <button @click="handleLogin">Login</button>
+        <button @click="handleLogin" @keydown="handleKeyPress" class="bg-slate-600 text-white text-2xl py-2 px-4 rounded-lg">Login</button>
         <div v-if="data.loading" class="mx-4">
             <UISpinner />
         </div>
@@ -25,6 +25,14 @@ const data = reactive({
     loading: false,
 })
 
+const handleKeyPress = (e) => {
+    e.preventDefault();
+
+    if (e.key === 'Enter' || e.keyCode === 13) {
+        handleLogin()
+    }
+}
+
 async function handleLogin() {
     const { login } = useAuth()
     data.loading = true
@@ -37,7 +45,9 @@ async function handleLogin() {
         
     }
     finally {
-       data.loading= false
+        data.loading = false
+        data.email = ""
+       data.password = ""
     }
 }
 

@@ -39,5 +39,4 @@ const darkMode = ref(false)
 const { useAuthUser } = useAuth()
 const user = useAuthUser()
 
-
 </script>

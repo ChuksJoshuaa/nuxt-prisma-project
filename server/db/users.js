@@ -20,3 +20,11 @@ export const getUserByEmail = async (email) => {
         }
     })
 }
+
+export const getUserById = (id) => {
+    return prisma.user.findUnique({
+        where: {
+            id: id
+        }
+    })
+}
