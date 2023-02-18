@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken"
-import { __prod__, REFRESH_TOKEN } from "../constant";
+import { __prod__, REFRESH_TOKEN } from "../utils/constant";
 
 const generateAccessToken = (user) => {
     const config = useRuntimeConfig()

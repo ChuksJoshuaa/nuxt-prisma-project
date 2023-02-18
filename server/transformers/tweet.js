@@ -1,6 +1,6 @@
 export const tweetTransformer = (tweet) => {
   return {
-    idL: tweet.id,
+    id: tweet.id,
     text: tweet.text,
   };
 };
