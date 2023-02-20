@@ -37,12 +37,12 @@
         </div>
         
         <div class="ml-auto">
-            <UIButton size="sm">
+            <UIButton size="sm" :disabled="isDisabled" @onClick="handleFormSubmit">
                 <span class="font-bold">
                     Tweet
                 </span>
             </UIButton>
-                <!-- <button @click="handleFormSubmit">Tweet</button> -->
+        
         </div>
     </div>
     <div>
@@ -59,6 +59,8 @@ const selectedFile = ref(null)
 const inputImageUrl = ref(null)
 const emits = defineEmits(['onSubmit'])
 const text = ref("")
+
+const isDisabled = computed(() => text.value === '')
 
 const props = defineProps({
     user: {
