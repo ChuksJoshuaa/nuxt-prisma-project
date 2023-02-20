@@ -9,7 +9,11 @@
        <div v-for="image in tweet.mediaFiles" :key="image.id"
             class="flex my-3 mr-2 border-2 rounded-2xl" :class="twitterBorderColor">
            <img :src="image.url" alt="media-logo" class="w-full rounded-2xl"/>
-         </div>
+        </div>
+
+        <div class="mt-2">
+           <TweetItemActions />
+        </div>
     </div>
   </div>
 </template>
