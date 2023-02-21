@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h1>list feed</h1>
-
     <div v-if="isEmptyArray" class="p-4">
       <p class="text-center text-gray-500">
         No tweets 😕
