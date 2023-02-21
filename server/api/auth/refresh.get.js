@@ -1,5 +1,5 @@
 import { sendError, getCookie } from "h3";
-import { REFRESH_TOKEN } from "../../constant";
+import { REFRESH_TOKEN } from "../../utils/constant";
 import { getRefreshTokenByToken } from "~~/server/db/refreshToken";
 import { decodeRefreshToken, generateTokens } from "~~/server/token/jwt";
 import { getUserById } from "~~/server/db/users";

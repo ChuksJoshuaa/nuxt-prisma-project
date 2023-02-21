@@ -17,7 +17,8 @@ const props = defineProps({
     active: {
         type: Boolean,
         default: false
-    }
+  },
+
 })
 
 const textClasses = computed(() => props.active ? 'font-semibold': 'font-nornal')
