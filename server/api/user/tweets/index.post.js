@@ -3,6 +3,7 @@ import { createTweet } from "~~/server/db/tweets";
 import { tweetTransformer } from "~~/server/transformers/tweet";
 import { createMediaFile } from "~~/server/db/mediaFiles";
 import { uploadToCloudinary } from "~~/server/utils/cloudinary";
+import { defineEventHandler } from "h3";
 
 export default defineEventHandler(async (event) => {
   const form = formidable({});

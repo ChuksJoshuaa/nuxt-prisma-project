@@ -1,5 +1,6 @@
 import { getTweetById } from "~~/server/db/tweets";
 import { tweetTransformer } from "~~/server/transformers/tweet";
+import { defineEventHandler } from "h3";
 
 export default defineEventHandler(async (event) => {
   const { id } = event.context.params;

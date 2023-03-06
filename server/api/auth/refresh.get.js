@@ -1,11 +1,11 @@
-import { sendError, getCookie } from "h3";
 import { REFRESH_TOKEN } from "../../utils/constant";
 import { getRefreshTokenByToken } from "~~/server/db/refreshToken";
 import { decodeRefreshToken, generateTokens } from "~~/server/token/jwt";
 import { getUserById } from "~~/server/db/users";
+import { sendError, defineEventHandler, createError, getCookie } from "h3";
 
 export default defineEventHandler(async (event) => {
-    const refreshToken = getCookie(event, REFRESH_TOKEN);
+  const refreshToken = getCookie(event, REFRESH_TOKEN);
 
   if (!refreshToken) {
     return sendError(
@@ -16,37 +16,36 @@ export default defineEventHandler(async (event) => {
       })
     );
   }
-    
-    const rToken = await getRefreshTokenByToken(refreshToken)
 
-    if (!rToken) {
-      return sendError(
-        event,
-        createError({
-          statusCode: 401,
-          message: "Refresh token is invalid",
-        })
-      );
-    }
+  const rToken = await getRefreshTokenByToken(refreshToken);
 
-    const token = await decodeRefreshToken(refreshToken);
+  if (!rToken) {
+    return sendError(
+      event,
+      createError({
+        statusCode: 401,
+        message: "Refresh token is invalid",
+      })
+    );
+  }
 
-    try {
-        const user = await getUserById(token.userId)
+  const token = await decodeRefreshToken(refreshToken);
 
-        const { accessToken } = generateTokens(user)
+  try {
+    const user = await getUserById(token.userId);
 
-        return {
-            access_token: accessToken,
-        }
-    }
-    catch (error) {
-        return sendError(
-          event,
-          createError({
-            statusCode: 500,
-            message: "Something went wrong",
-          })
-        );
-    }
+    const { accessToken } = generateTokens(user);
+
+    return {
+      access_token: accessToken,
+    };
+  } catch (error) {
+    return sendError(
+      event,
+      createError({
+        statusCode: 500,
+        message: "Something went wrong",
+      })
+    );
+  }
 });

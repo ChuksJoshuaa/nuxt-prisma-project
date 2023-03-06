@@ -1,4 +1,5 @@
 import { getTweets } from "~~/server/db/tweets";
+import { defineEventHandler } from "h3";
 import { tweetTransformer } from "~~/server/transformers/tweet";
 
 export default defineEventHandler(async (event) => {
