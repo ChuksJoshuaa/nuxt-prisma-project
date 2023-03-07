@@ -6,7 +6,7 @@
         </template>
 
 
-        <template v-slot:default v-if="showStat">
+        <template v-slot:default v-if="showStats">
             {{ props.tweet.repliesCount }}
         </template>
     </TweetItemActionsIcon>
@@ -18,7 +18,7 @@
         </template>
 
 
-        <template v-slot:default v-if="showStat">
+        <template v-slot:default v-if="showStats">
             {{randy()}}
         </template>
     </TweetItemActionsIcon>
@@ -30,7 +30,7 @@
         </template>
 
 
-        <template v-slot:default v-if="showStat">
+        <template v-slot:default v-if="showStats">
             {{randy()}}
         </template>
     </TweetItemActionsIcon>
@@ -42,7 +42,7 @@
         </template>
 
 
-        <template v-slot:default v-if="showStat">
+        <template v-slot:default v-if="showStats">
             {{randy()}}
         </template>
     </TweetItemActionsIcon>

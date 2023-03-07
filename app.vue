@@ -12,7 +12,7 @@
           <!-- Left sidebar -->
           <div class="hidden md:block xs-col-span-1 xl:col-span-2">
             <div class="sticky top-0">
-              <SidebarLeft />
+              <SidebarLeft @on-tweet="handleOpenTweetModal"/>
             </div>
           </div>
 
@@ -33,6 +33,9 @@
       <!-- Auth -->
       <AuthPage v-else />
 
+      <UIModal :isOpen="postTweetModal" @on-close="handleModalClose">
+        <TweetForm :user="user" @on-success="handleFormSuccess"/>
+      </UIModal>
     </div>
   </div>
 </template>  
@@ -44,8 +47,24 @@ const { useAuthUser, initAuth, useAuthLoading } = useAuth()
 const isAuthLoading = useAuthLoading()
 const user = useAuthUser()
 
+const { closePostTweetModal, usePostTweetModal, openPostTweetModal } = useTweet()
+const postTweetModal = usePostTweetModal()
+
 onBeforeMount(() => {
   initAuth()
 })
 
+function handleFormSuccess(tweet) {
+  closePostTweetModal()
+}
+
+
+function handleOpenTweetModal() {
+  openPostTweetModal()
+}
+
+
+function handleModalClose() {
+  closePostTweetModal()
+}
 </script>

@@ -1,10 +1,10 @@
 import UrlPattern from "url-pattern";
 import { decodeAccessToken } from "~~/server/token/jwt";
-import { sendError } from "h3";
+import { sendError, createError, defineEventHandler } from "h3";
 import { getUserById } from "~~/server/db/users";
 
 export default defineEventHandler(async (event) => {
-  const endpoints = ["/api/auth/user", "/api/user/tweets", "api/tweets", "api/tweets/:id"];
+  const endpoints = ["/api/auth/user", "/api/user/tweets", "/api/tweets", "/api/tweets/:id"];
 
   const isHandleByThisMiddleware = endpoints.some((endpoint) => {
     const pattern = new UrlPattern(endpoint);

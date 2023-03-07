@@ -22,8 +22,11 @@ const { useAuthUser } = useAuth()
 const user = useAuthUser()
 
 function getTweetIdFromRoute() {
-  return useRoute().params.id
+  const route = useRoute()
+  return route.params.id
 }
+
+watch(() => useRoute().fullPath, () => getTweet())
 
 async function getTweet() {
   loading.value = true
@@ -40,7 +43,7 @@ async function getTweet() {
 
 
 onBeforeMount(() => {
-  getTweet()
+  getTweet();
 })
 
 </script>

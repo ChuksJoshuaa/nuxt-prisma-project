@@ -1,3 +1,4 @@
+import useAuth from "./useAuth"
 export default (url, options = {}) => {
 
     const { useAuthToken } = useAuth()

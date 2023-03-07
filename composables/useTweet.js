@@ -1,4 +1,18 @@
+import useFetchApi from "./useFetchApi";
+
 export default () => {
+  const usePostTweetModal = () => useState("post_tweet_modal", () => false);
+
+  const openPostTweetModal = () => {
+    const postTweetModal = usePostTweetModal();
+    postTweetModal.value = true;
+  };
+
+  const closePostTweetModal = () => {
+    const postTweetModal = usePostTweetModal();
+    postTweetModal.value = false;
+  };
+
   const postTweet = (formData) => {
     const form = new FormData();
 
@@ -7,6 +21,7 @@ export default () => {
     }
 
     form.append("text", formData.text);
+    form.append("replyTo", formData.replyTo);
 
     formData.mediaFiles.forEach((mediaFile, index) => {
       form.append("media_file_" + index, mediaFile);
@@ -18,11 +33,12 @@ export default () => {
     });
   };
 
-  const getHomeTweets = () => {
+  const getHomeTweets = (params = {}) => {
     return new Promise(async (resolve, reject) => {
       try {
         const response = await useFetchApi("/api/tweets", {
           method: "GET",
+          params,
         });
 
         resolve(response);
@@ -50,5 +66,8 @@ export default () => {
     postTweet,
     getHomeTweets,
     getTweetById,
+    closePostTweetModal,
+    usePostTweetModal,
+    openPostTweetModal,
   };
 };
