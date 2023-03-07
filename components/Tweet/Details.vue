@@ -2,7 +2,7 @@
   <div>
      <TweetItem :tweet="props.tweet"/>
 
-     <TweetForm placeholder="tweet your reply" :reply-to="props.tweet" :user="props.user" @on-success="handleFormSuccess" />
+     <TweetForm placeholder="tweet your reply" :replyTo="props.tweet" :user="props.user" @on-success="handleFormSuccess" />
 
      <TweetListFeed :tweets="replies" />
   </div>

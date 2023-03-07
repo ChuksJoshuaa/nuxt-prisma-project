@@ -34,7 +34,8 @@
       <AuthPage v-else />
 
       <UIModal :isOpen="postTweetModal" @on-close="handleModalClose">
-        <TweetForm :user="user" @on-success="handleFormSuccess"/>
+  
+        <TweetForm :user="user" @onSuccess="handleFormSuccess" :replyTo="replyTweet" showReply/>
       </UIModal>
     </div>
   </div>
@@ -47,8 +48,15 @@ const { useAuthUser, initAuth, useAuthLoading } = useAuth()
 const isAuthLoading = useAuthLoading()
 const user = useAuthUser()
 
-const { closePostTweetModal, usePostTweetModal, openPostTweetModal } = useTweet()
+const { closePostTweetModal, usePostTweetModal, openPostTweetModal, useReplyTweet } = useTweet()
 const postTweetModal = usePostTweetModal()
+const emitter = useEmitter()
+const replyTweet = useReplyTweet()
+
+
+emitter.$on('replyTweet', (tweet) => {
+  openPostTweetModal(tweet)
+})
 
 onBeforeMount(() => {
   initAuth()
@@ -60,7 +68,7 @@ function handleFormSuccess(tweet) {
 
 
 function handleOpenTweetModal() {
-  openPostTweetModal()
+  openPostTweetModal(null)
 }
 
 
